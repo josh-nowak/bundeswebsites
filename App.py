@@ -1,6 +1,12 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(
+    page_title="Bundeswebsites",
+    page_icon="🏛️",
+    layout="wide",
+)
+
 
 @st.cache_data(ttl=3600)  # Cache data for 1 hour
 def load_data(file_path):
@@ -17,11 +23,7 @@ def filter_reachable_urls(dataframe):
 df = load_data("bundeswebsites.csv")
 df_only_reachable_urls = filter_reachable_urls(df)
 
-st.set_page_config(
-    page_title="Bundeswebsites",
-    page_icon="🏛️",
-    layout="wide",
-)
+
 st.title("Bundeswebsites")
 
 st.markdown(
