@@ -14,14 +14,7 @@ def load_data(file_path):
     return pd.read_csv(file_path)
 
 
-@st.cache_data  # Cache filtered data
-def filter_reachable_urls(dataframe):
-    """Filter dataframe to only include reachable URLs."""
-    return dataframe[dataframe["final_status"].isin(["200", "202"])]
-
-
 df = load_data("bundeswebsites.csv")
-df_only_reachable_urls = filter_reachable_urls(df)
 
 
 st.title("Bundeswebsites")
@@ -31,7 +24,14 @@ st.markdown(
 )
 
 only_reachable = st.checkbox("Nur erreichbare Websites anzeigen", value=True)
+advanced = st.checkbox("Erweiterte Ansicht", value=False)
+
+df_view = df.copy()
+
 if only_reachable:
-    st.write(df_only_reachable_urls.loc[:, ["url", "title", "description"]])
-else:
-    st.write(df.loc[:, ["url", "title", "description"]])
+    df_view = df_view[df_view["final_status"] == "200"]
+
+if not advanced:
+    df_view = df_view.loc[:, ["ressort", "url", "title", "description"]]
+
+st.write(df_view)
