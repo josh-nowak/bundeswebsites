@@ -32,6 +32,6 @@ st.markdown(
 
 only_reachable = st.checkbox("Nur erreichbare Websites anzeigen", value=True)
 if only_reachable:
-    st.write(df_only_reachable_urls.loc[:, ["url", "title", "meta_desc"]])
+    st.write(df_only_reachable_urls.loc[:, ["url", "title", "description"]])
 else:
-    st.write(df.loc[:, ["url", "title", "meta_desc"]])
+    st.write(df.loc[:, ["url", "title", "description"]])
